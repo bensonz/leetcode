@@ -23,6 +23,7 @@ func longestCommonPrefix(strs []string) string {
 			shortest = strs[i]
 		}
 	}
+	// then check prefix
 	var prefix string
 	for i := range shortest {
 		p := testAtI(strs, i, shortest[i:i+1])
