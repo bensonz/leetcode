@@ -4,7 +4,6 @@ import (
 	"fmt"
 )
 
-// Not hard at all, very simple, just two pointers
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	var con []int
 	l1, l2 := len(nums1), len(nums2)

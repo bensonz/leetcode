@@ -20,7 +20,7 @@ var pos = [][]int{
 	{-1, 0}, //up
 }
 
-// given a position,
+// Depth first search
 func walk(maze [][]int, row, col int, solution *[][]bool) bool {
 	maxRow := len(maze) - 1
 	maxCol := len(maze[0]) - 1
