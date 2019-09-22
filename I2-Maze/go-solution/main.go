@@ -13,7 +13,7 @@ func check(maze [][]int, row, col int) bool {
 	return maze[row][col] == 0
 }
 
-var pos = [][]int{
+var dirs = [][]int{
 	{0, 1},  // right
 	{0, -1}, // left
 	{1, 0},  // down
@@ -30,7 +30,7 @@ func walk(maze [][]int, row, col int, solution *[][]bool) bool {
 		(*solution)[row][col] = true
 		return true //done
 	}
-	for _, dir := range pos {
+	for _, dir := range dirs {
 		nr := row + dir[0]
 		nc := col + dir[1]
 		if check(maze, nr, nc) {
