@@ -5,19 +5,37 @@ import (
 	"sort"
 )
 
-func find(nums []int, t int, c chan int) {
-	for _, v := range nums {
-		if v == t {
-			c <- v
-			return
+// target is 0
+func threeSum(nums []int) [][]int {
+	nlen = len(nums)
+	sort.Ints(nums) // sort it
+	var result [][]int
+	if nlen < 3 || nums[0] > 0 || nums[nlen-1] < 0 {
+		// no solution
+		return result
+	}
+	for i := 0; i <= nlen-3; i++ {
+		j := i + 1
+		k := nlen - 1
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		for j < k {
+			if nums[i]+nums[j]+nums[k] == 0 {
+				result = append(result, []int{nums[i], nums[j], nums[k]})
+				j++
+				for ; j < k && nums[j] == nums[j-1]; j++ {
+
+				}
+			} else if nums[i]+nums[j]+nums[k] > 0 {
+				k--
+			} else {
+				j++
+			}
 		}
 	}
-	c <- -1
-	return
-}
 
-func threeSum(nums []int) [][]int {
-
+	return result
 }
 
 func main() {

@@ -25,11 +25,13 @@ func longestPalindrome(s string) string {
 	start := 0
 	for i := 0; i < len(s); i++ {
 		lo, so := extendPalindrome(s, i, i)
+		// odd
 		if max < lo {
 			max = lo
 			start = so
 		}
 		le, se := extendPalindrome(s, i, i+1)
+		// even
 		if max < le {
 			max = le
 			start = se
