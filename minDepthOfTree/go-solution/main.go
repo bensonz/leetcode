@@ -32,8 +32,8 @@ func minDepth(root *TreeNode) int {
 		q = newQ
 		newQ = []TreeNode{}
 	}
-
 }
+
 func main() {
 	fmt.Println()
 }

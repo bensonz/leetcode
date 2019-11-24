@@ -1,0 +1,66 @@
+package main
+
+import (
+	"fmt"
+)
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func trap(height []int) int {
+	height = append([]int{0}, height...)
+	height = append(height, 0)
+	var apex, trueApex []int
+	// find apex
+	for i := 1; i < len(height)-1; i++ {
+		if height[i-1] <= height[i] && height[i] >= height[i+1] {
+			apex = append(apex, i)
+		}
+	}
+	fmt.Println(apex)
+	for k := 0; k < len(apex); k++ {
+		if k == 0 || k == len(apex)-1 {
+			trueApex = append(trueApex, apex[k])
+		} else {
+			idx := apex[k]
+			left := apex[k-1]
+			right := apex[k+1]
+			if height[left] > height[idx] && height[idx] < height[right] {
+				// false apex
+				continue
+			} else {
+				trueApex = append(trueApex, apex[k])
+			}
+		}
+	}
+	fmt.Println(trueApex)
+	var water int
+	for j := 1; j < len(trueApex); j++ {
+		left, right := trueApex[j-1], trueApex[j]
+		h := min(height[left], height[right])
+		for left < right-1 {
+			left++
+			add := h - height[left]
+			fmt.Printf("h: %v, Cur: %v, Adding: %v\n", h, height[left], add)
+			if add > 0 {
+				water += add
+			}
+		}
+	}
+	return water
+}
+
+func main() {
+	// a := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
+	// fmt.Println(trap(a))
+	// b := []int{5, 4, 1, 2}
+	// fmt.Println(trap(b))
+	// c := []int{5, 2, 1, 2, 1, 5}
+	// fmt.Println(trap(c))
+	d := []int{5, 5, 1, 7, 1, 1, 5, 2, 7, 6}
+	fmt.Println(trap(d))
+}

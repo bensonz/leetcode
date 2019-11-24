@@ -1,0 +1,59 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+//
+// 给定一个非负整数数组，将它们排成一个尽可能大的数，例如，给定数组[9, 81, 6, 35, 3, 30]，那最后得到的最大数是981635330. 注意，由于最终结果可能是非常大的，所以返回结果使用string类型。
+
+func isLessThan(a, b int) bool {
+	as, bs := strconv.Itoa(a), strconv.Itoa(b)
+	afirst := as + bs
+	bfirst := bs + as
+	afirstNum, _ := strconv.Atoi(afirst)
+	bfirstNum, _ := strconv.Atoi(bfirst)
+	// if as + bs < bs + as, meaning we want bs, b is larger
+	// otherwise b is smaller
+	return afirstNum < bfirstNum
+}
+
+func largestNum(a []int) string {
+	l := len(a)
+	if l < 1 {
+		// nothing in array
+		return ""
+	}
+	var result string
+	for i := 0; i < l-1; i++ {
+		jMin := i
+		for j := i + 1; j < l; j++ {
+			if isLessThan(a[j], a[jMin]) {
+				jMin = j
+			}
+		}
+		if jMin != i {
+			a[i], a[jMin] = a[jMin], a[i]
+		}
+	}
+	fmt.Println(a)
+	for i := range a {
+		result += strconv.Itoa(a[l-i-1])
+	}
+	return result
+}
+
+func main() {
+	// a := []int{50, 52, 63, 90, 3, 8, 15, 44}
+	// fmt.Println(largestNum(a))
+	// b := []int{1, 2, 3, 4, 5}
+	// fmt.Println(largestNum(b))
+	c := []int{9, 3, 81, 6, 35, 30}
+	fmt.Println(largestNum(c))
+	// fmt.Println(isLessThan(3, 30))  // 330 303 => a first => false
+	// fmt.Println(isLessThan(3, 35))  // 353 335 => b first => true
+	// fmt.Println(isLessThan(30, 35)) // 3530 3035 => b first => true
+	// fmt.Println(isLessThan(51, 515))
+	// fmt.Println(isLessThan(56, 566))
+}
